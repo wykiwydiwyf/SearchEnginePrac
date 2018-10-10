@@ -23,8 +23,8 @@
          <children>
             <HBox fx:id="SearchContainer" layoutX="-3.0" layoutY="199.0" prefHeight="50.0" prefWidth="467.0">
                <children>
-                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="51.0" />
-                  <TextField fx:id="searchText" prefHeight="50.0" prefWidth="346.0" />
+                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="87.0" />
+                  <TextField fx:id="searchText" prefHeight="50.0" prefWidth="317.0" />
                   <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="50.0" prefWidth="115.0" text="Search">
                      <font>
                         <Font name="Lucida Bright" size="17.0" />

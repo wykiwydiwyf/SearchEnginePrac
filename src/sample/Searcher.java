@@ -14,6 +14,7 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 
 public class Searcher {
 
@@ -27,7 +28,6 @@ public class Searcher {
         String query = keywords[0];
         for (int i =1;i<keywords.length;i++){
             query+=" AND " + keywords[i-1]+" AND "+keywords[i];
-
         }
 
         TopDocs foundDocs = searchContent(query, searcher);
