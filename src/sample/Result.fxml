@@ -22,11 +22,18 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button fx:id="SearchBtnC" layoutX="397.0" layoutY="14.0" mnemonicParsing="false" onAction="#SearchAgain" text="Search" />
+                  <Button fx:id="SearchBtnC" layoutX="404.0" layoutY="14.0" mnemonicParsing="false" onAction="#SearchAgain" prefHeight="31.0" prefWidth="63.0">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                   <TextField fx:id="SearchTextC" layoutX="81.0" layoutY="14.0" prefHeight="23.0" prefWidth="309.0" />
-                  <ImageView fx:id="steamLogo" fitHeight="57.0" fitWidth="83.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="steamLogo" fitHeight="68.0" fitWidth="71.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@steam.png" />
+                        <Image url="@LGDB.png" />
                      </image></ImageView>
                   <Button fx:id="goBackbtn" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#goPrevious" text="Go back" />
                </children></AnchorPane>

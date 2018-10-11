@@ -38,9 +38,7 @@ public class ResultCont implements Initializable {
     public SplitPane SplitP;
     public Button SearchBtnC;
     public TextField SearchTextC;
-    public ImageView steamLogo;
     public Text WarnText;
-    public Hyperlink urlHyper;
     public AnchorPane AncResultUp;
     public VBox resultContainer;
     public Button goBackbtn;

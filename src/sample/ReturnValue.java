@@ -53,7 +53,6 @@ public class ReturnValue   {
             return WarnText;
         }
 
-
         try {
             LinkedList<Document> results = Searcher.search(searchQuery);
 
