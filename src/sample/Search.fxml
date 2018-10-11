@@ -55,14 +55,14 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="SEARCH YOUR FAVORITE GAME">
+            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="YIFEI'S GAME TRACKER">
                <font>
-                  <Font name="Showcard Gothic" size="31.0" />
+                  <Font name="Showcard Gothic" size="41.0" />
                </font>
                <effect>
-                  <SepiaTone level="0.37">
+                  <SepiaTone level="0.11">
                      <input>
-                        <DropShadow color="#946464" height="32.86" radius="15.93" spread="0.54" width="32.86" />
+                        <DropShadow color="#946464" height="26.93" offsetX="10.0" offsetY="-5.0" radius="14.4475" spread="0.61" width="32.86" />
                      </input>
                   </SepiaTone>
                </effect>
@@ -75,7 +75,7 @@
                   </RadialGradient>
                </textFill>
             </Label>
-            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" prefHeight="78.0" prefWidth="78.0">
+            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" onMouseEntered="#addShadow" prefHeight="78.0" prefWidth="78.0">
                <graphic>
                   <ImageView fitHeight="79.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                      <image>

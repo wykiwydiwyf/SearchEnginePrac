@@ -4,16 +4,22 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="AncMain" prefHeight="400.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="AncMain" prefHeight="300.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <ImageView fx:id="BG" fitHeight="400.0" fitWidth="635.0" pickOnBounds="true">
          <image>
@@ -23,38 +29,73 @@
          <children>
             <HBox fx:id="SearchContainer" layoutX="-3.0" layoutY="199.0" prefHeight="50.0" prefWidth="467.0">
                <children>
-                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="87.0" />
+                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="87.0">
+                     <effect>
+                        <Lighting diffuseConstant="1.49" surfaceScale="0.92">
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect></ChoiceBox>
                   <TextField fx:id="searchText" prefHeight="50.0" prefWidth="317.0" />
                   <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="50.0" prefWidth="115.0" text="Search">
                      <font>
                         <Font name="Lucida Bright" size="17.0" />
                      </font>
+                     <effect>
+                        <Lighting bumpInput="$null" diffuseConstant="1.77">
+                           <light>
+                              <Light.Distant azimuth="19.89" elevation="124.54" />
+                           </light>
+                        </Lighting>
+                     </effect>
                   </Button>
                </children>
             </HBox>
-            <ImageView fx:id="steamLogo" fitHeight="50.0" fitWidth="74.0" layoutX="439.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@steam.png" />
-               </image>
-            </ImageView>
-            <Label fx:id="searchTitle" layoutX="98.0" layoutY="93.0" prefHeight="78.0" prefWidth="311.0" text="Search Your Favorite Game">
+            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="SEARCH YOUR FAVORITE GAME">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Showcard Gothic" size="31.0" />
+               </font>
+               <effect>
+                  <SepiaTone level="0.37">
+                     <input>
+                        <DropShadow color="#946464" height="32.86" radius="15.93" spread="0.54" width="32.86" />
+                     </input>
+                  </SepiaTone>
+               </effect>
+               <textFill>
+                  <RadialGradient centerX="0.5055555555555555" centerY="0.5" focusDistance="-0.18604651162790697" radius="0.9883720930232558">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </RadialGradient>
+               </textFill>
+            </Label>
+            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" prefHeight="78.0" prefWidth="78.0">
+               <graphic>
+                  <ImageView fitHeight="79.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@LGDB.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.66" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="1.0" />
+               </font>
+            </Button>
+            <Label layoutX="221.0" layoutY="66.0" text="ON">
+               <font>
+                  <Font name="Showcard Gothic" size="14.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <TextFlow fx:id="warmContainer" layoutX="143.0" layoutY="317.0" prefHeight="56.0" prefWidth="303.0">
-         <children>
-            <Text fx:id="WarnText" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="143.240234375">
-               <font>
-                  <Font size="13.0" />
-               </font></Text>
-            <Text fx:id="SimilarText" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="143.240234375">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Text>
-         </children></TextFlow>
    </children>
 </AnchorPane>

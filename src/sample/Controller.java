@@ -2,6 +2,7 @@ package sample;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -11,7 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -32,7 +35,6 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Controller implements Initializable {
-    public TextFlow resultText;
     public Text WarnText;
     public AnchorPane AncMain;
     public ImageView BG;
@@ -41,10 +43,7 @@ public class Controller implements Initializable {
     public ChoiceBox typeDragD;
     public TextField searchText;
     public Button searchBtn;
-    public ImageView steamLogo;
     public Label searchTitle;
-    public TextFlow warmContainer;
-    public Text SimilarText;
     public Button SponceBtn;
 
     @Override
@@ -115,5 +114,23 @@ public class Controller implements Initializable {
                 e1.printStackTrace();
             }
 
+    }
+    DropShadow shadow = new DropShadow();
+    public void addShadow(MouseEvent mouseEvent) {
+        SponceBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        SponceBtn.setEffect(shadow);
+                    }
+                });
+        //Removing the shadow when the mouse cursor is off
+        SponceBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        SponceBtn.setEffect(null);
+                    }
+                });
     }
 }
