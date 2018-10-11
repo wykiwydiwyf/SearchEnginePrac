@@ -13,12 +13,12 @@
 
 <AnchorPane fx:id="AncResultUp" prefHeight="400.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ResultCont">
    <children>
-      <ImageView fx:id="BG" fitHeight="400.0" fitWidth="602.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="BG" fitHeight="450.0" fitWidth="635.0" pickOnBounds="true">
          <image>
             <Image url="@background.jpg" />
          </image>
       </ImageView>
-      <SplitPane fx:id="SplitP" dividerPositions="0.135678391959799" orientation="VERTICAL" prefHeight="400.0" prefWidth="635.0">
+      <SplitPane fx:id="SplitP" dividerPositions="0.135678391959799" opacity="0.87" orientation="VERTICAL" prefHeight="450.0" prefWidth="635.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -30,11 +30,11 @@
                      </image></ImageView>
                   <Button fx:id="goBackbtn" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#goPrevious" text="Go back" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="160.0">
                <children>
-                  <ScrollPane prefHeight="341.0" prefWidth="635.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="20.0" prefHeight="366.0" prefWidth="635.0">
                      <content>
-                        <VBox fx:id="resultContainer" prefHeight="330.0" prefWidth="620.0" />
+                        <VBox fx:id="resultContainer" prefHeight="367.0" prefWidth="633.0" />
                      </content>
                   </ScrollPane>
                   <TextFlow prefHeight="23.0" prefWidth="600.0">

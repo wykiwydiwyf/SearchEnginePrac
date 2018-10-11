@@ -1,7 +1,13 @@
 package sample;
 
+import com.sun.deploy.uitoolkit.impl.fx.HostServicesFactory;
+import com.sun.javafx.application.HostServicesDelegate;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.SplitPane;
@@ -14,17 +20,32 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import javafx.application.Application;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
 
 import java.util.HashSet;
+import java.util.List;
 
-public class ReturnValue  {
+public class ReturnValue   {
 
     private static String WarnText = new String();
-    private static LinkedList<Hyperlink> ResultAnkleList = new LinkedList<>();
+    private HostServices hostServices ;
+    public HostServices getHostServices() {
+        return hostServices ;
+    }
+    public void setHostServices(HostServices hostServices) {
+        this.hostServices = hostServices ;
+    }
+
+
+
     public static String ReturnWarn(TextField input){
         String searchQuery = input.getText();
         if (searchQuery.length() == 0) {  // textField does not handle (userInput != null)
@@ -34,7 +55,7 @@ public class ReturnValue  {
 
 
         try {
-            HashSet<Document> results = Searcher.search(searchQuery);
+            LinkedList<Document> results = Searcher.search(searchQuery);
 
 
             if (results.size() == 0) {
@@ -52,19 +73,74 @@ public class ReturnValue  {
         return WarnText;
     }
 
-    public static LinkedList<Hyperlink> ReturnAnkle(TextField input){
-        long start = System.currentTimeMillis(); // Search time count start
+    public static LinkedList<String> ReturnAnkle(TextField input) throws Exception {
         String searchQuery = input.getText();
-        try {
-        HashSet<Document> results = Searcher.search(searchQuery);
-        for (Document result : results) {// for-each loop through the result and append
-            ResultAnkleList.add(new Hyperlink(String.format(result.get("url"))+"\n"));
+        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<String>listAnkle = new LinkedList<>();
+        for (Document result : results) {
+            String urlText = new URL(result.get("url")).getPath();
+            //Get word from url
+            urlText = urlText.replaceAll("[/\\-_]"," ");
+            //Capitalize First Letter and highlight type
+            urlText = urlText.substring(1);
+            String[] test1 = urlText.split(" ");
+            String RurlText=" ";
+            for (String t:test1){
+                if (t.length()>1) {
+                    t = t.substring(0, 1).toUpperCase() + t.substring(1);
+                }
+                RurlText = RurlText + " "+t;
+            }
+            RurlText = RurlText.substring(2);
+            String[] test = RurlText.split(" ",2);
+            if (test.length>1) {
+                String firstWord = test[0];
+                String restWord = test[1];
+
+                listAnkle.add("["+firstWord+"]"+restWord);
+            }
+            else listAnkle.add(RurlText);
         }
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-        return ResultAnkleList;
+
+        return listAnkle;
     }
+
+    public static LinkedList<Hyperlink> ReturnHyperlink(TextField input) throws Exception {
+        String searchQuery = input.getText();
+        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<Hyperlink>listAnkle = new LinkedList<>();
+        for (Document result : results) {
+            Hyperlink urlText = new Hyperlink(result.get("url"));
+            urlText.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+                    Desktop d = Desktop.getDesktop();
+                    try {
+                        URI website = new URI(urlText.getText());
+                        d.browse(website);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (URISyntaxException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
+            listAnkle.add(urlText);
+        }
+        return listAnkle;
+    }
+
+    public static LinkedList<String> ReturnDiscrb(TextField input) throws Exception {
+        String searchQuery = input.getText();
+        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<String>listAnkle = new LinkedList<>();
+        for (Document result : results) {
+            String discribText = (result.get("description"));
+            listAnkle.add(discribText);
+        }
+        return listAnkle;
+    }
+
     private static final String INDEX_DIR = "data/index";
 
     public static LinkedHashMap BuildSimilarWordLib()throws Exception{
@@ -106,4 +182,6 @@ public class ReturnValue  {
         }
         return SimilarWordList;
     }
+
+
 }

@@ -14,14 +14,15 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Searcher {
 
     private static final String INDEX_DIR = "data/index";
 
-    public static HashSet<Document> search(String keyword) throws Exception {
-        HashSet<Document>docList = new HashSet<>();
+    public static LinkedList<Document> search(String keyword) throws Exception {
+        LinkedList<Document>docList = new LinkedList<>();
         IndexSearcher searcher = createSearcher();
         //Search Content
         String keywords[] = keyword.split(" ");
@@ -39,7 +40,7 @@ public class Searcher {
             docList.add(d);
         }
         return docList;
-        }
+    }
 
     private static TopDocs searchContent(String Content, IndexSearcher searcher) throws Exception {
         QueryParser qp = new QueryParser("content", new StandardAnalyzer());
