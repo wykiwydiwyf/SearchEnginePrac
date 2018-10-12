@@ -4,7 +4,6 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -15,7 +14,6 @@ import org.apache.lucene.store.FSDirectory;
 
 import java.nio.file.Paths;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Searcher {
 

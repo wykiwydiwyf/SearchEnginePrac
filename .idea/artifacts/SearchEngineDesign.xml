@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="SearchEngineDesign">
+    <output-path>$PROJECT_DIR$/out/artifacts/SearchEngineDesign</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="sample.Main" />
+        <option name="description" value="" />
+        <option name="height" value="748" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="SearchEngine11" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+        <option name="width" value="1195" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="SearchEngineDesign.jar">
+        <element id="module-output" name="SearchEngineDesign" />
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

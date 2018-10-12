@@ -29,9 +29,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
