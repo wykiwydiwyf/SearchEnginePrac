@@ -20,17 +20,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="AncMain" prefHeight="300.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="AncMain" prefHeight="748.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <ImageView fx:id="BG" fitHeight="400.0" fitWidth="635.0" pickOnBounds="true">
+      <ImageView fx:id="BG" fitHeight="748.0" fitWidth="1195.0" pickOnBounds="true">
          <image>
             <Image url="@background.jpg" />
          </image></ImageView>
-      <Pane fx:id="CenterContainer" layoutX="78.0" layoutY="69.0" prefHeight="263.0" prefWidth="499.0">
+      <Pane fx:id="CenterContainer" prefHeight="748.0" prefWidth="1195.0">
          <children>
-            <HBox fx:id="SearchContainer" layoutX="-3.0" layoutY="199.0" prefHeight="50.0" prefWidth="467.0">
+            <HBox fx:id="SearchContainer" layoutX="160.0" layoutY="500.0" prefHeight="50.0" prefWidth="853.0">
                <children>
-                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="87.0">
+                  <ChoiceBox fx:id="typeDragD" prefHeight="50.0" prefWidth="118.0">
                      <effect>
                         <Lighting diffuseConstant="1.49" surfaceScale="0.92">
                            <bumpInput>
@@ -41,10 +41,10 @@
                            </light>
                         </Lighting>
                      </effect></ChoiceBox>
-                  <TextField fx:id="searchText" prefHeight="50.0" prefWidth="317.0" />
-                  <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="49.0" prefWidth="115.0" text="Search">
+                  <TextField fx:id="searchText" onKeyPressed="#enterSearch" prefHeight="50.0" prefWidth="633.0" />
+                  <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="49.0" prefWidth="112.0" text="Search">
                      <font>
-                        <Font name="Lucida Bright" size="13.0" />
+                        <Font name="Lucida Bright" size="17.0" />
                      </font>
                      <effect>
                         <Lighting bumpInput="$null" diffuseConstant="1.77">
@@ -63,9 +63,9 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="SUPER GAME TRACKER">
+            <Label fx:id="searchTitle" layoutX="297.0" layoutY="178.0" prefHeight="61.0" prefWidth="601.0" text="SUPER GAME TRACKER">
                <font>
-                  <Font name="Showcard Gothic" size="41.0" />
+                  <Font name="Showcard Gothic" size="51.0" />
                </font>
                <effect>
                   <SepiaTone level="0.11">
@@ -83,32 +83,30 @@
                   </RadialGradient>
                </textFill>
             </Label>
-            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" onMouseEntered="#addShadow" prefHeight="78.0" prefWidth="78.0">
-               <graphic>
-                  <ImageView fitHeight="79.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@LGDB.png" />
-                     </image>
-                     <effect>
-                        <Glow level="0.66" />
-                     </effect>
-                  </ImageView>
-               </graphic>
+            <Button fx:id="SponceBtn" layoutX="561.0" layoutY="336.0" mnemonicParsing="false" onAction="#ShowSponcer" onMouseEntered="#addShadow" prefHeight="78.0" prefWidth="78.0">
                <font>
                   <Font size="1.0" />
                </font>
             </Button>
-            <Label layoutX="184.0" layoutY="67.0" text="Sponsord by">
+            <Label layoutX="551.0" layoutY="278.0" text="Sponsord by">
                <font>
                   <Font name="Showcard Gothic" size="14.0" />
                </font>
             </Label>
+            <ImageView fitHeight="79.0" fitWidth="87.0" layoutX="561.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@LGDB.png" />
+               </image>
+               <effect>
+                  <Glow level="0.66" />
+               </effect>
+            </ImageView>
+            <Text fx:id="WarnText" fill="#c91111" layoutX="512.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="357.240234375">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
-      <Text fx:id="WarnText" fill="#c91111" layoutX="159.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="357.240234375">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

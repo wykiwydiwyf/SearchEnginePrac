@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -57,48 +59,7 @@ public class Controller implements Initializable {
     }
 
     public void doSearch(ActionEvent actionEvent) throws Exception {
-        String searchQuery = searchText.getText();
-
-
-        if (searchQuery.length() == 0 ) {
-            WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
-        }
-        else {
-            LinkedList<Document> results = Searcher.search(searchQuery,typeDragD.getValue().toString());
-
-            if (results.size() == 0) {
-                WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
-            }
-            else {
-                FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Result.fxml"));
-                Parent root = newLoader.load();
-                ResultCont resultCont = newLoader.getController();
-                resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
-
-                LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText,typeDragD.getValue().toString());
-                LinkedList<String> ankleList = ReturnValue.ReturnAnkle(searchText,typeDragD.getValue().toString());
-                LinkedList<String> describList = ReturnValue.ReturnDiscrb(searchText,typeDragD.getValue().toString());
-                for (int i=0;i<hyperList.size();i++){
-                    VBox dummyVbox = new VBox();
-                    Hyperlink Hyperurl = hyperList.get(i);
-                    String Ankletext = ankleList.get(i);
-                    String describText = describList.get(i);
-                    Text TankleText = new Text(Ankletext);
-                    TankleText.setFont(Font.font(null, FontWeight.BOLD, 15));
-                    dummyVbox.getChildren().add(TankleText);
-                    dummyVbox.getChildren().add(Hyperurl);
-                    Text TdescribText = new Text(describText);
-                    TdescribText.wrappingWidthProperty().bind(AncMain.widthProperty());
-                    dummyVbox.getChildren().add(TdescribText);
-                    dummyVbox.setSpacing(3);
-                    resultCont.resultContainer.getChildren().add(dummyVbox);
-                }
-
-                resultCont.resultContainer.setSpacing(10);
-                resultCont.SearchTextC.setText(searchText.getText());
-                searchBtn.getScene().setRoot(root);
-            }
-        }
+        searchMethod();
 
     }
 
@@ -132,4 +93,53 @@ public class Controller implements Initializable {
                     }
                 });
     }
-}
+
+    public void enterSearch(KeyEvent keyEvent) throws Exception {
+        if (keyEvent.getCode()== KeyCode.ENTER){
+            searchMethod();
+        }
+    }
+        public void searchMethod ()throws Exception {
+            String searchQuery = searchText.getText();
+
+
+            if (searchQuery.length() == 0) {
+                WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()));
+            } else {
+                LinkedList<Document> results = Searcher.search(searchQuery, typeDragD.getValue().toString());
+
+                if (results.size() == 0) {
+                    WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()));
+                } else {
+                    FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Result.fxml"));
+                    Parent root = newLoader.load();
+                    ResultCont resultCont = newLoader.getController();
+                    resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()));
+
+                    LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText, typeDragD.getValue().toString());
+                    LinkedList<String> ankleList = ReturnValue.ReturnAnkle(searchText, typeDragD.getValue().toString());
+                    LinkedList<String> describList = ReturnValue.ReturnDiscrb(searchText, typeDragD.getValue().toString());
+                    for (int i = 0; i < hyperList.size(); i++) {
+                        VBox dummyVbox = new VBox();
+                        Hyperlink Hyperurl = hyperList.get(i);
+                        String Ankletext = ankleList.get(i);
+                        String describText = describList.get(i);
+                        Text TankleText = new Text(Ankletext);
+                        TankleText.setFont(Font.font(null, FontWeight.BOLD, 15));
+                        dummyVbox.getChildren().add(TankleText);
+                        dummyVbox.getChildren().add(Hyperurl);
+                        Text TdescribText = new Text(describText);
+                        TdescribText.wrappingWidthProperty().bind(AncMain.widthProperty());
+                        dummyVbox.getChildren().add(TdescribText);
+                        dummyVbox.setSpacing(3);
+                        resultCont.resultContainer.getChildren().add(dummyVbox);
+                    }
+
+                    resultCont.resultContainer.setSpacing(10);
+                    resultCont.SearchTextC.setText(searchText.getText());
+                    searchBtn.getScene().setRoot(root);
+                }
+            }
+
+        }
+    }
