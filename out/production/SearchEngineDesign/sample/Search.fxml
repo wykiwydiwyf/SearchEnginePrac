@@ -18,6 +18,7 @@
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="AncMain" prefHeight="300.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
@@ -41,9 +42,9 @@
                         </Lighting>
                      </effect></ChoiceBox>
                   <TextField fx:id="searchText" prefHeight="50.0" prefWidth="317.0" />
-                  <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="50.0" prefWidth="115.0" text="Search">
+                  <Button id="search_btn" fx:id="searchBtn" mnemonicParsing="false" onAction="#doSearch" prefHeight="49.0" prefWidth="115.0" text="Search">
                      <font>
-                        <Font name="Lucida Bright" size="17.0" />
+                        <Font name="Lucida Bright" size="13.0" />
                      </font>
                      <effect>
                         <Lighting bumpInput="$null" diffuseConstant="1.77">
@@ -52,17 +53,24 @@
                            </light>
                         </Lighting>
                      </effect>
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@gamepad-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="SEARCH YOUR FAVORITE GAME">
+            <Label fx:id="searchTitle" layoutX="16.0" prefHeight="57.0" prefWidth="467.0" text="SUPER GAME TRACKER">
                <font>
-                  <Font name="Showcard Gothic" size="31.0" />
+                  <Font name="Showcard Gothic" size="41.0" />
                </font>
                <effect>
-                  <SepiaTone level="0.37">
+                  <SepiaTone level="0.11">
                      <input>
-                        <DropShadow color="#946464" height="32.86" radius="15.93" spread="0.54" width="32.86" />
+                        <DropShadow color="#946464" height="26.93" offsetX="10.0" offsetY="-5.0" radius="14.4475" spread="0.61" width="32.86" />
                      </input>
                   </SepiaTone>
                </effect>
@@ -75,7 +83,7 @@
                   </RadialGradient>
                </textFill>
             </Label>
-            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" prefHeight="78.0" prefWidth="78.0">
+            <Button fx:id="SponceBtn" layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#ShowSponcer" onMouseEntered="#addShadow" prefHeight="78.0" prefWidth="78.0">
                <graphic>
                   <ImageView fitHeight="79.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -90,12 +98,17 @@
                   <Font size="1.0" />
                </font>
             </Button>
-            <Label layoutX="221.0" layoutY="66.0" text="ON">
+            <Label layoutX="184.0" layoutY="67.0" text="Sponsord by">
                <font>
                   <Font name="Showcard Gothic" size="14.0" />
                </font>
             </Label>
          </children>
       </Pane>
+      <Text fx:id="WarnText" fill="#c91111" layoutX="159.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="357.240234375">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

@@ -5,11 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -22,8 +20,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 import org.apache.lucene.document.Document;
 
 import java.awt.*;
@@ -31,8 +27,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     public Text WarnText;
@@ -49,10 +47,13 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
         typeDragD.setItems(FXCollections.observableArrayList(
-                "Game", "News ",
-                new Separator(), "Term","Community"));
+                "games", "people",
+                new Separator(), "character","users","feedback","platform"));
         typeDragD.getSelectionModel().selectFirst();
+
+
     }
 
     public void doSearch(ActionEvent actionEvent) throws Exception {
@@ -60,23 +61,23 @@ public class Controller implements Initializable {
 
 
         if (searchQuery.length() == 0 ) {
-            WarnText.setText(ReturnValue.ReturnWarn(searchText));
+            WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
         }
         else {
-            LinkedList<Document> results = Searcher.search(searchQuery);
+            LinkedList<Document> results = Searcher.search(searchQuery,typeDragD.getValue().toString());
 
             if (results.size() == 0) {
-                WarnText.setText(ReturnValue.ReturnWarn(searchText));
+                WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
             }
             else {
                 FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Result.fxml"));
                 Parent root = newLoader.load();
                 ResultCont resultCont = newLoader.getController();
-                resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText));
+                resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText,typeDragD.getValue().toString()));
 
-                LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText);
-                LinkedList<String> ankleList = ReturnValue.ReturnAnkle(searchText);
-                LinkedList<String> describList = ReturnValue.ReturnDiscrb(searchText);
+                LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText,typeDragD.getValue().toString());
+                LinkedList<String> ankleList = ReturnValue.ReturnAnkle(searchText,typeDragD.getValue().toString());
+                LinkedList<String> describList = ReturnValue.ReturnDiscrb(searchText,typeDragD.getValue().toString());
                 for (int i=0;i<hyperList.size();i++){
                     VBox dummyVbox = new VBox();
                     Hyperlink Hyperurl = hyperList.get(i);
@@ -108,14 +109,12 @@ public class Controller implements Initializable {
             try {
                 URI website = new URI("https://www.igdb.com/");
                 d.browse(website);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            } catch (URISyntaxException e1) {
+            } catch (IOException | URISyntaxException e1) {
                 e1.printStackTrace();
             }
 
     }
-    DropShadow shadow = new DropShadow();
+    private DropShadow shadow = new DropShadow();
     public void addShadow(MouseEvent mouseEvent) {
         SponceBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
                 new EventHandler<MouseEvent>() {

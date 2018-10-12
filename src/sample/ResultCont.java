@@ -1,36 +1,23 @@
 package sample;
 
-import javafx.application.HostServices;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import sun.awt.image.ImageWatched;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResultCont implements Initializable {
@@ -42,26 +29,31 @@ public class ResultCont implements Initializable {
     public AnchorPane AncResultUp;
     public VBox resultContainer;
     public Button goBackbtn;
+    public ChoiceBox CtypeDragD;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        CtypeDragD.setItems(FXCollections.observableArrayList(
+                "games", "people",
+                new Separator(), "character","users","feedback","platform"));
+        CtypeDragD.getSelectionModel().selectFirst();
     }
 
 
     public void SearchAgain(ActionEvent actionEvent) throws Exception {
         String searchQuery = SearchTextC.getText();
+
         resultContainer.getChildren().clear();
             if (searchQuery.length() == 0 ) {
-                WarnText.setText(ReturnValue.ReturnWarn(SearchTextC));
+                WarnText.setText(ReturnValue.ReturnWarn(SearchTextC,CtypeDragD.getValue().toString()));
             }
             else {
-                WarnText.setText(ReturnValue.ReturnWarn(SearchTextC));
+                WarnText.setText(ReturnValue.ReturnWarn(SearchTextC,CtypeDragD.getValue().toString()));
 
-                LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(SearchTextC);
-                LinkedList<String> ankleList = ReturnValue.ReturnAnkle(SearchTextC);
-                LinkedList<String> describList = ReturnValue.ReturnDiscrb(SearchTextC);
+                LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(SearchTextC,CtypeDragD.getValue().toString());
+                LinkedList<String> ankleList = ReturnValue.ReturnAnkle(SearchTextC,CtypeDragD.getValue().toString());
+                LinkedList<String> describList = ReturnValue.ReturnDiscrb(SearchTextC,CtypeDragD.getValue().toString());
                 for (int i=0;i<hyperList.size();i++){
                     VBox dummyVbox = new VBox();
                     Hyperlink Hyperurl = hyperList.get(i);

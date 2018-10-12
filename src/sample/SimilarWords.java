@@ -4,22 +4,20 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SimilarWords {
+class SimilarWords {
 
-    public static HashSet<String> retrieveSimilarWords(LinkedHashMap hashMap, String[] query) {
-        HashSet<String> similarWords = new HashSet();
-        Map<String, Integer> map = hashMap;
+    static HashSet<String> retrieveSimilarWords(LinkedHashMap hashMap, String[] query) {
+        HashSet<String> similarWords = new HashSet<String>();
 
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
-            for (String Qwords: query) {
+        for (Map.Entry<String, Integer> entry : ((Map<String, Integer>) hashMap).entrySet())
+            for (String Qwords : query) {
                 if (distance(Qwords, entry.getKey()) == 1) {
                     similarWords.add(entry.getKey());
                 }
             }
-        }
 
         if (similarWords.isEmpty()) {  // If there are no words that have distance 1, get words with distance 2.
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            for (Map.Entry<String, Integer> entry : ((Map<String, Integer>) hashMap).entrySet()) {
                 for (String Qwords: query) {
                     if (distance(Qwords, entry.getKey()) == 2) {
                         similarWords.add(entry.getKey());
@@ -31,7 +29,7 @@ public class SimilarWords {
     }
 
 
-    protected static int distance(String a, String b) {
+    private static int distance(String a, String b) {
 
 
 

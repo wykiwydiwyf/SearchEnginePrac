@@ -1,26 +1,14 @@
 package sample;
 
-import com.sun.deploy.uitoolkit.impl.fx.HostServicesFactory;
-import com.sun.javafx.application.HostServicesDelegate;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import javafx.application.Application;
 
 import java.awt.*;
 import java.io.IOException;
@@ -28,25 +16,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
-import java.util.*;
-
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
-public class ReturnValue   {
+class ReturnValue   {
 
-    private static String WarnText = new String();
-    private HostServices hostServices ;
-    public HostServices getHostServices() {
-        return hostServices ;
-    }
-    public void setHostServices(HostServices hostServices) {
-        this.hostServices = hostServices ;
-    }
+    private static String WarnText = "";
 
-
-
-    public static String ReturnWarn(TextField input){
+    static String ReturnWarn(TextField input,String fieldsForb){
         String searchQuery = input.getText();
         if (searchQuery.length() == 0) {  // textField does not handle (userInput != null)
             WarnText=("Please enter a search query");
@@ -54,13 +33,13 @@ public class ReturnValue   {
         }
 
         try {
-            LinkedList<Document> results = Searcher.search(searchQuery);
+            LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
 
 
             if (results.size() == 0) {
-                String tempText=new String();
-                for (int i =0;i<showSimilarWords(searchQuery).size();i++) {
-                    tempText += showSimilarWords(searchQuery).get(i);
+                StringBuilder tempText= new StringBuilder();
+                for (int i = 0; showSimilarWords(searchQuery).size() > i; i++) {
+                    tempText.append("  ").append(showSimilarWords(searchQuery).get(i));
                 }
                 WarnText=("The search did not find any results for '" + searchQuery + "'"+"\n ..Do you mean..: "+tempText);
                 return WarnText;
@@ -72,9 +51,9 @@ public class ReturnValue   {
         return WarnText;
     }
 
-    public static LinkedList<String> ReturnAnkle(TextField input) throws Exception {
+    static LinkedList<String> ReturnAnkle(TextField input,String fieldsForb) throws Exception {
         String searchQuery = input.getText();
-        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
         LinkedList<String>listAnkle = new LinkedList<>();
         for (Document result : results) {
             String urlText = new URL(result.get("url")).getPath();
@@ -104,9 +83,9 @@ public class ReturnValue   {
         return listAnkle;
     }
 
-    public static LinkedList<Hyperlink> ReturnHyperlink(TextField input) throws Exception {
+    static LinkedList<Hyperlink> ReturnHyperlink(TextField input,String fieldsForb) throws Exception {
         String searchQuery = input.getText();
-        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
         LinkedList<Hyperlink>listAnkle = new LinkedList<>();
         for (Document result : results) {
             Hyperlink urlText = new Hyperlink(result.get("url"));
@@ -117,9 +96,7 @@ public class ReturnValue   {
                     try {
                         URI website = new URI(urlText.getText());
                         d.browse(website);
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    } catch (URISyntaxException e1) {
+                    } catch (IOException | URISyntaxException e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -129,9 +106,9 @@ public class ReturnValue   {
         return listAnkle;
     }
 
-    public static LinkedList<String> ReturnDiscrb(TextField input) throws Exception {
+    static LinkedList<String> ReturnDiscrb(TextField input,String fieldsForb) throws Exception {
         String searchQuery = input.getText();
-        LinkedList<Document> results = Searcher.search(searchQuery);
+        LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
         LinkedList<String>listAnkle = new LinkedList<>();
         for (Document result : results) {
             String discribText = (result.get("description"));
@@ -147,9 +124,9 @@ public class ReturnValue   {
         LinkedHashMap<String, Integer> wordLib = new LinkedHashMap<>();
         IndexReader reader = DirectoryReader.open(dir);
 
-        for (int i=0; i<reader.maxDoc(); i++) {
+        for (int i=0; i<100; i++) {
             Document doc = reader.document(i);
-            String[] words = (doc.toString()).split("\\t|,|;|\\.|\\?|!|\\-|\\+|=|:|@| |\\[|\\]|\\(|\\)|\\{|\\}|_|\\*|/");
+            String[] words = (doc.toString()).split("[\\t,;.?!-+=:@ \\[]()*_*/]");
 
             for (String word:words){
                 word = word.toLowerCase();
@@ -175,9 +152,7 @@ public class ReturnValue   {
         String[]searchQueryWords=searchQuery.split(" ");
         HashSet<String> similarWords = SimilarWords.retrieveSimilarWords(hashMap,searchQueryWords);
         if (!similarWords.isEmpty()) { // If there are no similar words, don't try to display them
-            for (String similarWord: similarWords) {
-                SimilarWordList.add(similarWord );
-            }
+            SimilarWordList.addAll(similarWords);
         }
         return SimilarWordList;
     }
