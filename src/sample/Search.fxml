@@ -36,9 +36,7 @@
                            <bumpInput>
                               <Shadow />
                            </bumpInput>
-                           <light>
-                              <Light.Distant />
-                           </light>
+
                         </Lighting>
                      </effect></ChoiceBox>
                   <TextField fx:id="searchText" onKeyPressed="#enterSearch" prefHeight="50.0" prefWidth="633.0" />
@@ -48,9 +46,6 @@
                      </font>
                      <effect>
                         <Lighting bumpInput="$null" diffuseConstant="1.77">
-                           <light>
-                              <Light.Distant azimuth="19.89" elevation="124.54" />
-                           </light>
                         </Lighting>
                      </effect>
                      <graphic>
@@ -87,20 +82,22 @@
                <font>
                   <Font size="1.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="79.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@LGDB.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.66" />
+                     </effect>
+                  </ImageView>
+               </graphic>
             </Button>
             <Label layoutX="551.0" layoutY="278.0" text="Sponsord by">
                <font>
                   <Font name="Showcard Gothic" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="79.0" fitWidth="87.0" layoutX="561.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@LGDB.png" />
-               </image>
-               <effect>
-                  <Glow level="0.66" />
-               </effect>
-            </ImageView>
             <Text fx:id="WarnText" fill="#c91111" layoutX="512.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="357.240234375">
                <font>
                   <Font size="14.0" />

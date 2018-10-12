@@ -10,30 +10,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="AncResultUp" prefHeight="400.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ResultCont">
+<AnchorPane fx:id="AncResultUp" prefHeight="748.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ResultCont">
    <children>
-      <ImageView fx:id="BG" fitHeight="450.0" fitWidth="635.0" pickOnBounds="true">
+      <ImageView fx:id="BG" fitHeight="748.0" fitWidth="1195.0" pickOnBounds="true">
          <image>
             <Image url="@background.jpg" />
          </image>
       </ImageView>
-      <SplitPane fx:id="SplitP" dividerPositions="0.135678391959799" opacity="0.87" orientation="VERTICAL" prefHeight="450.0" prefWidth="635.0">
+      <SplitPane fx:id="SplitP" dividerPositions="0.135678391959799" opacity="0.87" orientation="VERTICAL" prefHeight="748.0" prefWidth="1195.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <ImageView fx:id="steamLogo" fitHeight="68.0" fitWidth="71.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="steamLogo" fitHeight="105.0" fitWidth="111.0" layoutX="-3.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@LGDB.png" />
                      </image></ImageView>
-                  <Button fx:id="goBackbtn" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" onAction="#goPrevious" text="Go back" />
-                  <HBox layoutX="66.0" layoutY="14.0" prefHeight="31.0" prefWidth="388.0">
+                  <Button fx:id="goBackbtn" layoutX="1085.0" layoutY="30.0" mnemonicParsing="false" onAction="#goPrevious" prefHeight="31.0" prefWidth="86.0" text="Go back">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <HBox layoutX="224.0" layoutY="24.0" prefHeight="50.0" prefWidth="761.0">
                      <children>
-                        <ChoiceBox fx:id="CtypeDragD" prefHeight="31.0" prefWidth="111.0" />
-                        <TextField fx:id="SearchTextC" prefHeight="31.0" prefWidth="289.0" />
-                        <Button fx:id="SearchBtnC" mnemonicParsing="false" onAction="#SearchAgain" prefHeight="31.0" prefWidth="57.0">
+                        <ChoiceBox fx:id="CtypeDragD" prefHeight="53.0" prefWidth="114.0" />
+                        <TextField fx:id="SearchTextC" onKeyPressed="#enterSearchC" prefHeight="50.0" prefWidth="569.0" />
+                        <Button fx:id="SearchBtnC" mnemonicParsing="false" onAction="#SearchAgain" prefHeight="53.0" prefWidth="88.0">
                            <graphic>
                               <ImageView fitHeight="23.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -45,16 +49,20 @@
                      </children>
                   </HBox>
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="340.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="669.0" prefWidth="1157.0">
                <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="20.0" prefHeight="366.0" prefWidth="635.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="20.0" prefHeight="663.0" prefWidth="1195.0">
                      <content>
-                        <VBox fx:id="resultContainer" prefHeight="367.0" prefWidth="633.0" />
+                        <VBox fx:id="resultContainer" prefHeight="219.0" prefWidth="1193.0" />
                      </content>
                   </ScrollPane>
-                  <TextFlow prefHeight="23.0" prefWidth="600.0">
+                  <TextFlow layoutX="2.0" prefHeight="23.0" prefWidth="958.0">
                      <children>
-                        <Text fx:id="WarnText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text fx:id="WarnText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="349.99996641278267">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
                      </children>
                   </TextFlow>
                </children></AnchorPane>
