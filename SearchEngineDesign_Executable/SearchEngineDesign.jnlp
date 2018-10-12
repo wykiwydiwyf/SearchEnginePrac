@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="SearchEngineDesign.jnlp">
+  <information>
+    <title>SearchEngine11</title>
+    <vendor>Unknown</vendor>
+    <description>SearchEngineDesign</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="SearchEngineDesign.jar" size="357554" download="eager" />
+    <jar href="lucene-analyzers-common-7.5.0.jar" size="1652342" download="eager" />
+    <jar href="lucene-backward-codecs-7.5.0.jar" size="100019" download="eager" />
+    <jar href="lucene-core-7.5.0.jar" size="3056210" download="eager" />
+    <jar href="lucene-queries-7.5.0.jar" size="265078" download="eager" />
+    <jar href="lucene-queryparser-7.5.0.jar" size="381909" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="1195" height="748" main-class="sample.Main"  name="SearchEngineDesign" />
+  <update check="background"/>
+</jnlp>
