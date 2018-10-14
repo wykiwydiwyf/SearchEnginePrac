@@ -40,6 +40,8 @@ class ReturnValue   {
                 StringBuilder tempText= new StringBuilder();
                 for (int i = 0; showSimilarWords(searchQuery).size() > i; i++) {
                     tempText.append("  ").append(showSimilarWords(searchQuery).get(i));
+                    if (i > 5)
+                        break;
                 }
                 WarnText=("The search did not find any results for '" + searchQuery + "'"+"\n ..Do you mean..: "+tempText);
                 return WarnText;
@@ -79,8 +81,16 @@ class ReturnValue   {
             }
             else listAnkle.add(RurlText);
         }
-        List<String> trueListAnkle = listAnkle.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
-        return trueListAnkle;
+        if (ResultCont.currentPage + 10 >= 10 && ResultCont.currentPage + 10 < Searcher.getTotalResult()) {
+            List<String> trueListAnkle = listAnkle.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+            return trueListAnkle;
+        } else if (ResultCont.currentPage + 10 > Searcher.getTotalResult() && ResultCont.currentPage < Searcher.getTotalResult() && Searcher.getTotalResult() > 10) {
+            List<String> trueListDiscrb = listAnkle.subList((int) (Searcher.getTotalResult() - 10), (int) (Searcher.getTotalResult() - 10 + 10));
+            return trueListDiscrb;
+        } else {
+            List<String> trueListDiscrb = listAnkle.subList(0, listAnkle.size());
+            return trueListDiscrb;
+        }
     }
 
     static List<Hyperlink> ReturnHyperlink(TextField input, String fieldsForb) throws Exception {
@@ -103,8 +113,16 @@ class ReturnValue   {
             });
             listHyper.add(urlText);
         }
-        List<Hyperlink> trueListHyper = listHyper.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
-        return trueListHyper;
+        if (ResultCont.currentPage + 10 >= 10 && ResultCont.currentPage + 10 < Searcher.getTotalResult()) {
+            List<Hyperlink> trueListHyper = listHyper.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+            return trueListHyper;
+        } else if (ResultCont.currentPage + 20 > Searcher.getTotalResult() && ResultCont.currentPage < Searcher.getTotalResult() && Searcher.getTotalResult() > 10) {
+            List<Hyperlink> trueListHyper = listHyper.subList((int) (Searcher.getTotalResult() - 10), (int) (Searcher.getTotalResult() - 10 + 10));
+            return trueListHyper;
+        } else {
+            List<Hyperlink> trueListHyper = listHyper.subList(0, listHyper.size());
+            return trueListHyper;
+        }
     }
 
     static List<String> ReturnDiscrb(TextField input, String fieldsForb) throws Exception {
@@ -115,21 +133,29 @@ class ReturnValue   {
             String discribText = (result.get("description"));
             listDiscrb.add(discribText);
         }
-        List<String> trueListDiscrb = listDiscrb.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
-        return trueListDiscrb;
-
+        if (ResultCont.currentPage + 10 >= 10 && ResultCont.currentPage + 10 < Searcher.getTotalResult()) {
+            List<String> trueListDiscrb = listDiscrb.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+            return trueListDiscrb;
+        } else if (ResultCont.currentPage + 10 > Searcher.getTotalResult() && ResultCont.currentPage < Searcher.getTotalResult() && Searcher.getTotalResult() > 10) {
+            List<String> trueListDiscrb = listDiscrb.subList((int) (Searcher.getTotalResult() - 10), (int) (Searcher.getTotalResult() - 10 + 10));
+            return trueListDiscrb;
+        } else {
+            List<String> trueListDiscrb = listDiscrb.subList(0, listDiscrb.size());
+            return trueListDiscrb;
+        }
     }
 
     private static final String INDEX_DIR = "data/index";
+
 
     public static LinkedHashMap BuildSimilarWordLib()throws Exception{
         Directory dir = FSDirectory.open(Paths.get(INDEX_DIR));
         LinkedHashMap<String, Integer> wordLib = new LinkedHashMap<>();
         IndexReader reader = DirectoryReader.open(dir);
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             Document doc = reader.document(i);
-            String[] words = (doc.toString()).split("[\\t,;.?!-+=:@ \\[]()*_*/]");
+            String[] words = (doc.toString()).split("\\t|,|;|\\.|\\?|!|\\-|\\+|=|:|@| |\\[|\\]|\\(|\\)|\\{|\\}|_|\\*|/");
 
             for (String word:words){
                 word = word.toLowerCase();
@@ -143,7 +169,6 @@ class ReturnValue   {
         }
         return wordLib;
 
-
     }
 
     /**
@@ -153,12 +178,12 @@ class ReturnValue   {
     private static List<String> showSimilarWords(String searchQuery) throws Exception {
         List<String>SimilarWordList = new LinkedList<>();
         LinkedHashMap hashMap = BuildSimilarWordLib();
-        HashSet<String> similarWords = SimilarWords.retrieveSimilarWords(hashMap, searchQuery);
+        String[] searchQueryWords = searchQuery.split(" ");
+        HashSet<String> similarWords = SimilarWords.retrieveSimilarWords(hashMap, searchQueryWords);
         if (!similarWords.isEmpty()) { // If there are no similar words, don't try to display them
             SimilarWordList.addAll(similarWords);
         }
         return SimilarWordList;
     }
-
 
 }

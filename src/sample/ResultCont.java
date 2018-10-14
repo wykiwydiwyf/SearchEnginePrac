@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -43,13 +42,14 @@ public class ResultCont implements Initializable {
     }
 
 
-    public void SearchAgain(ActionEvent actionEvent) throws Exception {
+    public void SearchAgain() throws Exception {
+        currentPage = 0;
         searchMethod ();
 
     }
 
 
-    public void goPrevious(ActionEvent actionEvent) {
+    public void goPrevious() {
 
         FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Search.fxml"));
         try {
@@ -67,33 +67,41 @@ public class ResultCont implements Initializable {
         }
     }
 
-    public void goLastPage(ActionEvent actionEvent) throws Exception {
-        if (currentPage > 0) {
+    public void goLastPage() throws Exception {
+        if (currentPage > 0 && currentPage >= 10) {
             currentPage = currentPage - 10;
+            searchMethod();
+        } else if (currentPage - 10 < 1 && currentPage >= 0 && currentPage >= 10) {
+            currentPage = 0;
+            searchMethod();
+        } else if (currentPage < 10) {
+            currentPage = 0;
             searchMethod();
         }
     }
 
-    public void goNextPage(ActionEvent actionEvent) throws Exception {
-        if (currentPage < Searcher.getTotalResult() - 10) {
+    public void goNextPage() throws Exception {
+        if (currentPage < Searcher.getTotalResult() - 10 && Searcher.getTotalResult() > 10 && currentPage + 20 <= Searcher.getTotalResult()) {
             currentPage = currentPage + 10;
             searchMethod();
-        } else if (currentPage > Searcher.getTotalResult() - 10 && currentPage < Searcher.getTotalResult()) {
-            currentPage = (int) (Searcher.getTotalResult() + 10);
+        } else if (currentPage > Searcher.getTotalResult() - 10 && currentPage < Searcher.getTotalResult() && Searcher.getTotalResult() > 10 && currentPage + 20 <= Searcher.getTotalResult()) {
+            currentPage = (int) (Searcher.getTotalResult() - 10);
+            searchMethod();
+        } else if (currentPage + 20 > Searcher.getTotalResult()) {
+            currentPage = (int) (Searcher.getTotalResult() - 10);
             searchMethod();
         }
     }
 
     public void searchMethod ()throws Exception{
         String searchQuery = SearchTextC.getText();
-
+        long beginTime = System.currentTimeMillis();
         resultContainer.getChildren().clear();
         if (searchQuery.length() == 0 ) {
             WarnText.setText(ReturnValue.ReturnWarn(SearchTextC,CtypeDragD.getValue().toString()));
         }
         else {
-            WarnText.setText(ReturnValue.ReturnWarn(SearchTextC, CtypeDragD.getValue().toString()) +
-                    "                         Showing result  " + currentPage + " - " + (currentPage + 10));
+
 
             List<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(SearchTextC, CtypeDragD.getValue().toString());
             List<String> ankleList = ReturnValue.ReturnAnkle(SearchTextC, CtypeDragD.getValue().toString());
@@ -110,14 +118,20 @@ public class ResultCont implements Initializable {
                 Text TdescribText = new Text(describText);
                 TdescribText.wrappingWidthProperty().bind(SplitP.widthProperty());
                 dummyVbox.getChildren().add(TdescribText);
+
                 dummyVbox.setSpacing(3);
                 resultContainer.getChildren().add(dummyVbox);
             }
-
+            TextField author = new TextField("Author : YifeiWang");
+            resultContainer.getChildren().add(author);
+            TextField blank = new TextField();
+            resultContainer.getChildren().add(blank);
             resultContainer.setSpacing(10);
-
+            long endTime = System.currentTimeMillis();
+            WarnText.setText(ReturnValue.ReturnWarn(SearchTextC, CtypeDragD.getValue().toString()) +
+                    "                         Showing result  " + currentPage + " - " + (currentPage + 10) +
+                    "                         Total time: " + (endTime - beginTime) + " millisecond(s).");
         }
     }
-
 
 }

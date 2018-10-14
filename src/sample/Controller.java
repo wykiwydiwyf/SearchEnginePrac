@@ -88,6 +88,7 @@ public class Controller implements Initializable {
         }
     }
         public void searchMethod ()throws Exception {
+            long beginTime = System.currentTimeMillis();
             String searchQuery = searchText.getText();
 
 
@@ -102,8 +103,7 @@ public class Controller implements Initializable {
                     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Result.fxml"));
                     Parent root = newLoader.load();
                     ResultCont resultCont = newLoader.getController();
-                    resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()) +
-                            "                         Showing result  " + "0 - 10");
+
 
                     List<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText, typeDragD.getValue().toString());
                     List<String> ankleList = ReturnValue.ReturnAnkle(searchText, typeDragD.getValue().toString());
@@ -124,10 +124,21 @@ public class Controller implements Initializable {
                         resultCont.resultContainer.getChildren().add(dummyVbox);
                     }
 
+                    TextField author = new TextField("Author : YifeiWang");
+                    resultCont.resultContainer.getChildren().add(author);
+                    TextField blank = new TextField();
+                    resultCont.resultContainer.getChildren().add(blank);
                     resultCont.resultContainer.setSpacing(10);
 
                     resultCont.SearchTextC.setText(searchText.getText());
+
+                    long endTime = System.currentTimeMillis();
+                    resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()) +
+                            "                         Showing result  " + "0 - 10" +
+                            "                         Total time: " + (endTime - beginTime) + " millisecond(s).");
                     searchBtn.getScene().setRoot(root);
+
+
                 }
             }
 
