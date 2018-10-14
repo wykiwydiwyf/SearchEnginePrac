@@ -19,10 +19,20 @@
                      <image>
                         <Image url="@LGDB.png" />
                      </image></ImageView>
-                  <Button fx:id="goBackbtn" layoutX="1085.0" layoutY="30.0" mnemonicParsing="false" onAction="#goPrevious" prefHeight="31.0" prefWidth="86.0" text="Go back">
+                  <Button fx:id="goBackbtn" layoutX="1027.0" layoutY="34.0" mnemonicParsing="false"
+                          onAction="#goPrevious" prefHeight="31.0" prefWidth="111.0" text="Go back">
                      <font>
                         <Font name="System Bold" size="12.0" />
-                     </font></Button>
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="18.0" opacity="0.72" pickOnBounds="true"
+                                   preserveRatio="true">
+                           <image>
+                              <Image url="@images.png"/>
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                   <HBox layoutX="224.0" layoutY="24.0" prefHeight="50.0" prefWidth="761.0">
                      <children>
                         <ChoiceBox fx:id="CtypeDragD" prefHeight="53.0" prefWidth="114.0" />
