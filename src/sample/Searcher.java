@@ -19,6 +19,12 @@ public class Searcher {
 
     private static final String INDEX_DIR = "data/index";
 
+    private static final Integer numShowing = 20;
+    private static Long totalResult = null;
+
+
+
+
     public static LinkedList<Document> search(String keyword, String fields) throws Exception {
         LinkedList<Document>docList = new LinkedList<>();
         IndexSearcher searcher = createSearcher();
@@ -29,19 +35,20 @@ public class Searcher {
         //for content
 
         for (String key:keywords){
-            query.append(" OR content").append(key);
+            query.append(" OR ").append(key);
         }
         //for title boost with 5
         for (String key:keywords){
-            query.append(" OR title:").append(key).append("^5");
+            query.append(" OR title:").append(key).append("^2");
         }
         //field forbidden
             query.append(" AND url:").append(fields);
 
-
         TopDocs foundDocs = searchContent(query.toString(), searcher);
 
         System.out.println("Total Results :: " + foundDocs.totalHits);
+
+        totalResult = foundDocs.totalHits;
 
         for (ScoreDoc sd : foundDocs.scoreDocs) {
             Document d = searcher.doc(sd.doc);
@@ -50,10 +57,15 @@ public class Searcher {
         return docList;
     }
 
+    public static Long getTotalResult() {
+        return totalResult;
+    }
+
+
     private static TopDocs searchContent(String Content, IndexSearcher searcher) throws Exception {
         QueryParser qp = new QueryParser("content", new StandardAnalyzer());
         Query ContentQuery = qp.parse(Content);
-        return searcher.search(ContentQuery, 20);
+        return searcher.search(ContentQuery, numShowing);
     }
 
     private static IndexSearcher createSearcher() throws Exception {

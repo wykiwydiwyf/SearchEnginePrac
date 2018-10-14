@@ -1,8 +1,6 @@
 package sample;
 
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -56,13 +54,13 @@ public class Controller implements Initializable {
 
     }
 
-    public void doSearch(ActionEvent actionEvent) throws Exception {
+    public void doSearch() throws Exception {
         searchMethod();
 
     }
 
 
-    public void ShowSponcer(ActionEvent actionEvent) {
+    public void ShowSponcer() {
 
             Desktop d = Desktop.getDesktop();
             try {
@@ -74,22 +72,13 @@ public class Controller implements Initializable {
 
     }
     private DropShadow shadow = new DropShadow();
-    public void addShadow(MouseEvent mouseEvent) {
+
+    public void addShadow() {
         SponceBtn.addEventHandler(MouseEvent.MOUSE_ENTERED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        SponceBtn.setEffect(shadow);
-                    }
-                });
+                e -> SponceBtn.setEffect(shadow));
         //Removing the shadow when the mouse cursor is off
         SponceBtn.addEventHandler(MouseEvent.MOUSE_EXITED,
-                new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent e) {
-                        SponceBtn.setEffect(null);
-                    }
-                });
+                e -> SponceBtn.setEffect(null));
     }
 
     public void enterSearch(KeyEvent keyEvent) throws Exception {
@@ -134,6 +123,7 @@ public class Controller implements Initializable {
                     }
 
                     resultCont.resultContainer.setSpacing(10);
+
                     resultCont.SearchTextC.setText(searchText.getText());
                     searchBtn.getScene().setRoot(root);
                 }
