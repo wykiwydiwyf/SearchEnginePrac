@@ -19,7 +19,7 @@ public class Searcher {
 
     private static final String INDEX_DIR = "data/index";
 
-    private static final Integer numShowing = 20;
+    private static final Integer numShowing = 30000;
     private static Long totalResult = null;
 
 

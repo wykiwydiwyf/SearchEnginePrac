@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ResultCont implements Initializable {
@@ -30,7 +30,9 @@ public class ResultCont implements Initializable {
     public VBox resultContainer;
     public Button goBackbtn;
     public ChoiceBox CtypeDragD;
-
+    public static Integer currentPage = 0;
+    public Button lastPageBtn;
+    public Button nextPageBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -60,9 +62,25 @@ public class ResultCont implements Initializable {
     }
 
     public void enterSearchC(KeyEvent keyEvent) throws Exception{
-
         if (keyEvent.getCode()== KeyCode.ENTER){
             searchMethod ();
+        }
+    }
+
+    public void goLastPage(ActionEvent actionEvent) throws Exception {
+        if (currentPage > 0) {
+            currentPage = currentPage - 10;
+            searchMethod();
+        }
+    }
+
+    public void goNextPage(ActionEvent actionEvent) throws Exception {
+        if (currentPage < Searcher.getTotalResult() - 10) {
+            currentPage = currentPage + 10;
+            searchMethod();
+        } else if (currentPage > Searcher.getTotalResult() - 10 && currentPage < Searcher.getTotalResult()) {
+            currentPage = (int) (Searcher.getTotalResult() + 10);
+            searchMethod();
         }
     }
 
@@ -74,11 +92,12 @@ public class ResultCont implements Initializable {
             WarnText.setText(ReturnValue.ReturnWarn(SearchTextC,CtypeDragD.getValue().toString()));
         }
         else {
-            WarnText.setText(ReturnValue.ReturnWarn(SearchTextC,CtypeDragD.getValue().toString()));
+            WarnText.setText(ReturnValue.ReturnWarn(SearchTextC, CtypeDragD.getValue().toString()) +
+                    "                         Showing result  " + currentPage + " - " + (currentPage + 10));
 
-            LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(SearchTextC,CtypeDragD.getValue().toString());
-            LinkedList<String> ankleList = ReturnValue.ReturnAnkle(SearchTextC,CtypeDragD.getValue().toString());
-            LinkedList<String> describList = ReturnValue.ReturnDiscrb(SearchTextC,CtypeDragD.getValue().toString());
+            List<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(SearchTextC, CtypeDragD.getValue().toString());
+            List<String> ankleList = ReturnValue.ReturnAnkle(SearchTextC, CtypeDragD.getValue().toString());
+            List<String> describList = ReturnValue.ReturnDiscrb(SearchTextC, CtypeDragD.getValue().toString());
             for (int i=0;i<hyperList.size();i++){
                 VBox dummyVbox = new VBox();
                 Hyperlink Hyperurl = hyperList.get(i);
@@ -99,4 +118,6 @@ public class ResultCont implements Initializable {
 
         }
     }
+
+
 }

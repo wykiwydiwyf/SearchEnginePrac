@@ -3,9 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.*?>
 <AnchorPane fx:id="AncResultUp" prefHeight="748.0" prefWidth="1195.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ResultCont">
    <children>
       <ImageView fx:id="BG" fitHeight="748.0" fitWidth="1195.0" pickOnBounds="true">
@@ -57,6 +55,18 @@
                         </Text>
                      </children>
                   </TextFlow>
+                  <Button fx:id="lastPageBtn" layoutX="984.0" layoutY="7.0" mnemonicParsing="false"
+                          onAction="#goLastPage" prefHeight="31.0" prefWidth="86.0" text="Last Page">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                  </Button>
+                  <Button fx:id="nextPageBtn" layoutX="1082.0" layoutY="7.0" mnemonicParsing="false"
+                          onAction="#goNextPage" prefHeight="31.0" prefWidth="86.0" text="Next Page">
+                     <font>
+                        <Font name="System Bold" size="12.0"/>
+                     </font>
+                  </Button>
                </children></AnchorPane>
         </items>
       </SplitPane>

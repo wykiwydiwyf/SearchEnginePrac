@@ -28,6 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -101,11 +102,12 @@ public class Controller implements Initializable {
                     FXMLLoader newLoader = new FXMLLoader(getClass().getResource("Result.fxml"));
                     Parent root = newLoader.load();
                     ResultCont resultCont = newLoader.getController();
-                    resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()));
+                    resultCont.WarnText.setText(ReturnValue.ReturnWarn(searchText, typeDragD.getValue().toString()) +
+                            "                         Showing result  " + "0 - 10");
 
-                    LinkedList<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText, typeDragD.getValue().toString());
-                    LinkedList<String> ankleList = ReturnValue.ReturnAnkle(searchText, typeDragD.getValue().toString());
-                    LinkedList<String> describList = ReturnValue.ReturnDiscrb(searchText, typeDragD.getValue().toString());
+                    List<Hyperlink> hyperList = ReturnValue.ReturnHyperlink(searchText, typeDragD.getValue().toString());
+                    List<String> ankleList = ReturnValue.ReturnAnkle(searchText, typeDragD.getValue().toString());
+                    List<String> describList = ReturnValue.ReturnDiscrb(searchText, typeDragD.getValue().toString());
                     for (int i = 0; i < hyperList.size(); i++) {
                         VBox dummyVbox = new VBox();
                         Hyperlink Hyperurl = hyperList.get(i);

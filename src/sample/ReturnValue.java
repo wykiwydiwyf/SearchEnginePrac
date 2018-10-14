@@ -44,14 +44,14 @@ class ReturnValue   {
                 WarnText=("The search did not find any results for '" + searchQuery + "'"+"\n ..Do you mean..: "+tempText);
                 return WarnText;
             }
-            WarnText = ("Search Results for " + searchQuery + ": \n" + Searcher.getTotalResult() + "Total Result");
+            WarnText = ("Search Results for " + searchQuery + ": \n" + Searcher.getTotalResult() + "   Total results");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
         return WarnText;
     }
 
-    static LinkedList<String> ReturnAnkle(TextField input,String fieldsForb) throws Exception {
+    static List<String> ReturnAnkle(TextField input, String fieldsForb) throws Exception {
         String searchQuery = input.getText();
         LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
         LinkedList<String>listAnkle = new LinkedList<>();
@@ -79,14 +79,14 @@ class ReturnValue   {
             }
             else listAnkle.add(RurlText);
         }
-
-        return listAnkle;
+        List<String> trueListAnkle = listAnkle.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+        return trueListAnkle;
     }
 
-    static LinkedList<Hyperlink> ReturnHyperlink(TextField input,String fieldsForb) throws Exception {
+    static List<Hyperlink> ReturnHyperlink(TextField input, String fieldsForb) throws Exception {
         String searchQuery = input.getText();
         LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
-        LinkedList<Hyperlink>listAnkle = new LinkedList<>();
+        LinkedList<Hyperlink> listHyper = new LinkedList<>();
         for (Document result : results) {
             Hyperlink urlText = new Hyperlink(result.get("url"));
             urlText.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,20 +101,23 @@ class ReturnValue   {
                     }
                 }
             });
-            listAnkle.add(urlText);
+            listHyper.add(urlText);
         }
-        return listAnkle;
+        List<Hyperlink> trueListHyper = listHyper.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+        return trueListHyper;
     }
 
-    static LinkedList<String> ReturnDiscrb(TextField input,String fieldsForb) throws Exception {
+    static List<String> ReturnDiscrb(TextField input, String fieldsForb) throws Exception {
         String searchQuery = input.getText();
         LinkedList<Document> results = Searcher.search(searchQuery,fieldsForb);
-        LinkedList<String>listAnkle = new LinkedList<>();
+        LinkedList<String> listDiscrb = new LinkedList<>();
         for (Document result : results) {
             String discribText = (result.get("description"));
-            listAnkle.add(discribText);
+            listDiscrb.add(discribText);
         }
-        return listAnkle;
+        List<String> trueListDiscrb = listDiscrb.subList(ResultCont.currentPage, ResultCont.currentPage + 10);
+        return trueListDiscrb;
+
     }
 
     private static final String INDEX_DIR = "data/index";
