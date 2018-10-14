@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SearchEngineDesign.jar" size="357554" download="eager" />
+    <jar href="SearchEngineDesign.jar" size="360989" download="eager"/>
     <jar href="lucene-analyzers-common-7.5.0.jar" size="1652342" download="eager" />
     <jar href="lucene-backward-codecs-7.5.0.jar" size="100019" download="eager" />
     <jar href="lucene-core-7.5.0.jar" size="3056210" download="eager" />
