@@ -44,7 +44,7 @@ class ReturnValue   {
                 WarnText=("The search did not find any results for '" + searchQuery + "'"+"\n ..Do you mean..: "+tempText);
                 return WarnText;
             }
-            WarnText=("Search Results for "+searchQuery+": \n");
+            WarnText = ("Search Results for " + searchQuery + ": \n" + Searcher.getTotalResult() + "Total Result");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -124,7 +124,7 @@ class ReturnValue   {
         LinkedHashMap<String, Integer> wordLib = new LinkedHashMap<>();
         IndexReader reader = DirectoryReader.open(dir);
 
-        for (int i=0; i<100; i++) {
+        for (int i = 0; i < 1000; i++) {
             Document doc = reader.document(i);
             String[] words = (doc.toString()).split("[\\t,;.?!-+=:@ \\[]()*_*/]");
 
@@ -140,6 +140,7 @@ class ReturnValue   {
         }
         return wordLib;
 
+
     }
 
     /**
@@ -149,8 +150,7 @@ class ReturnValue   {
     private static List<String> showSimilarWords(String searchQuery) throws Exception {
         List<String>SimilarWordList = new LinkedList<>();
         LinkedHashMap hashMap = BuildSimilarWordLib();
-        String[]searchQueryWords=searchQuery.split(" ");
-        HashSet<String> similarWords = SimilarWords.retrieveSimilarWords(hashMap,searchQueryWords);
+        HashSet<String> similarWords = SimilarWords.retrieveSimilarWords(hashMap, searchQuery);
         if (!similarWords.isEmpty()) { // If there are no similar words, don't try to display them
             SimilarWordList.addAll(similarWords);
         }

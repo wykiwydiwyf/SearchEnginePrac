@@ -6,23 +6,20 @@ import java.util.Map;
 
 class SimilarWords {
 
-    static HashSet<String> retrieveSimilarWords(LinkedHashMap hashMap, String[] query) {
-        HashSet<String> similarWords = new HashSet<String>();
+    static HashSet<String> retrieveSimilarWords(LinkedHashMap hashMap, String Qwords) {
+        HashSet<String> similarWords = new HashSet<>();
 
         for (Map.Entry<String, Integer> entry : ((Map<String, Integer>) hashMap).entrySet())
-            for (String Qwords : query) {
                 if (distance(Qwords, entry.getKey()) == 1) {
                     similarWords.add(entry.getKey());
                 }
-            }
 
         if (similarWords.isEmpty()) {  // If there are no words that have distance 1, get words with distance 2.
             for (Map.Entry<String, Integer> entry : ((Map<String, Integer>) hashMap).entrySet()) {
-                for (String Qwords: query) {
                     if (distance(Qwords, entry.getKey()) == 2) {
                         similarWords.add(entry.getKey());
                     }
-                }
+
             }
         }
         return similarWords;
@@ -30,7 +27,6 @@ class SimilarWords {
 
 
     private static int distance(String a, String b) {
-
 
 
         a = a.toLowerCase();
